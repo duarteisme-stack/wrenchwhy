@@ -1,3 +1,2 @@
-import {Link} from 'react-router-dom';import {useAuth} from '../lib/auth';import {supabase} from '../lib/supabase';
-export default function Dashboard(){const{profile,admin}=useAuth();return <div className="p-8 max-w-4xl mx-auto"><h1 className="font-display text-5xl">Welcome, {profile?.fullName}</h1>
-<div className="flex flex-wrap gap-3 mt-6"><Link className="btn" to="/calendar">Book an appointment</Link><Link className="btn-ghost" to="/appointments">My appointments</Link>{admin&&<><Link className="btn-ghost" to="/admin">Admin panel</Link><Link className="btn-ghost" to="/admin/scan">Scan QR</Link></>}<button className="btn-ghost" onClick={()=>supabase.auth.signOut().then(()=>location.assign('/'))}>Log out</button></div></div>}
+import {Navigate} from 'react-router-dom';import {useAuth} from '../lib/auth';import Customer from './Customer';
+export default function Dashboard(){const{admin}=useAuth();return admin?<Navigate to="/admin"/>:<Customer/>}

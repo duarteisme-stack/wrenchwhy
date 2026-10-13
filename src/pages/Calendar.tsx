@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react';import {Link} from 'react-router-dom';import QRCode from 'qrcode';import {supabase} from '../lib/supabase';import {useAuth} from '../lib/auth';import {Logo} from '../App';import {at,addDays,manilaDate,monday,dn} from '../lib/util';
 type R=Record<string,any>;const hours=[8,9,10,11,12,13,14,15,16];
-export default function Calendar(){const{user,profile}=useAuth();
+export default function Calendar(){const{user,profile,admin}=useAuth();
 const[services,setS]=useState<R[]>([]);const[workers,setW]=useState<R[]>([]);const[busy,setB]=useState<R[]>([]);const[svcId,setSvc]=useState('');const[week,setWeek]=useState(monday(manilaDate(new Date())));
 const[sel,setSel]=useState<{date:string;h:number}|null>(null);const[vehicles,setV]=useState<R[]>([]);const[veh,setVeh]=useState('');const[nv,setNv]=useState({make:'',model:'',plate:''});
 const[msg,setMsg]=useState('');const[di,setDi]=useState(0);const[done,setDone]=useState<{ref:string;qr:string}|null>(null);
@@ -32,7 +32,7 @@ return <div className="max-w-6xl mx-auto p-5"><div className="flex justify-betwe
 {done&&<div className="card mt-5"><h2 className="font-display text-3xl">Booked! Reference {done.ref}</h2><p className="text-gray-300">Pay at the shop. Show this QR code on arrival. It is also saved under My appointments.</p><img src={done.qr} alt="Appointment QR code" className="bg-white p-2 rounded mt-3" width={280} height={280}/></div>}
 {sel&&Array.isArray(avail)&&<div className="card mt-5"><h2 className="font-display text-3xl">{sel.date} at {sel.h}:00, free mechanics</h2>
 {avail.map(w=><div key={w.id} className="flex items-center justify-between gap-3 py-2 border-b border-white/10"><div><b>{w.full_name}</b><div className="text-gray-400 text-sm">{(w.specialties??[]).join(', ')}</div></div>
- {!user?<Link to="/login" className="btn !py-2">Log in to book</Link>:!approved?<span className="text-amber text-sm">Your account is awaiting approval</span>:<button className="btn !py-2" onClick={()=>book(w)}>Book with {w.full_name}</button>}</div>)}
-{user&&approved&&<div className="mt-4">{vehicles.length>0?<label>Vehicle <select className={inp} value={veh} onChange={e=>setVeh(e.target.value)}>{vehicles.map(v=><option key={v.id} value={v.id}>{v.make} {v.model} {v.plate_number}</option>)}</select></label>:
+ {!user?<Link to="/login" className="btn !py-2">Log in to book</Link>:admin?<span className="text-amber text-sm">Admins cannot book. Use a customer account.</span>:!approved?<span className="text-amber text-sm">Your account is awaiting approval</span>:<button className="btn !py-2" onClick={()=>book(w)}>Book with {w.full_name}</button>}</div>)}
+{user&&approved&&!admin&&<div className="mt-4">{vehicles.length>0?<label>Vehicle <select className={inp} value={veh} onChange={e=>setVeh(e.target.value)}>{vehicles.map(v=><option key={v.id} value={v.id}>{v.make} {v.model} {v.plate_number}</option>)}</select></label>:
  <div className="flex flex-wrap gap-2"><input className={inp} placeholder="Make" value={nv.make} onChange={e=>setNv({...nv,make:e.target.value})}/><input className={inp} placeholder="Model" value={nv.model} onChange={e=>setNv({...nv,model:e.target.value})}/><input className={inp} placeholder="Plate number" value={nv.plate} onChange={e=>setNv({...nv,plate:e.target.value})}/></div>}</div>}
 <p className="text-ember mt-2" role="alert">{msg}</p></div>}</div>}

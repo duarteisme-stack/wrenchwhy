@@ -1,0 +1,3 @@
+rules_version='2';service firebase.storage{match /b/{b}/o{
+match /profiles/{uid}/{f}{allow read:if request.auth.uid==uid||request.auth.token.admin==true;allow write:if request.auth.uid==uid&&request.resource.size<2*1024*1024&&request.resource.contentType.matches('image/(jpeg|png|webp)')}
+match /public/{f=**}{allow read:if true;allow write:if request.auth.token.admin==true}}}

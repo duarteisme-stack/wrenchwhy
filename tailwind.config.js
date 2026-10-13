@@ -1,0 +1,1 @@
+export default {content:['./index.html','./src/**/*.{ts,tsx}'],theme:{extend:{colors:{coal:'#0e0e10',graphite:'#1c1c21',fire:'#ff6a00',ember:'#e02a1b',amber:'#ffb000'},fontFamily:{display:['Bebas Neue','Impact','sans-serif'],body:['Barlow','system-ui','sans-serif']}}}}

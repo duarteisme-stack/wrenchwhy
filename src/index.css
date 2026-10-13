@@ -1,0 +1,12 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+body{@apply bg-coal text-white font-body}
+.btn{@apply inline-block px-6 py-3 font-semibold rounded bg-fire text-black shadow-[0_0_24px_#ff6a0077] hover:bg-amber transition}
+.btn-ghost{@apply inline-block px-6 py-3 rounded border border-fire/60 hover:bg-fire/10}
+.card{@apply bg-graphite/80 border border-white/10 rounded-lg p-5 backdrop-blur}
+.q{position:absolute;color:#ff6a00;font-family:'Bebas Neue';animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-28px) rotate(8deg)}}
+@keyframes swing{0%,100%{transform:rotate(-25deg)}50%{transform:rotate(25deg)}}
+.wrench{transform-origin:80% 80%;animation:swing 3s ease-in-out infinite}
+.flames{position:absolute;inset:auto 0 0 0;height:40%;background:radial-gradient(ellipse at 50% 100%,#ff6a00cc,#e02a1b66 40%,transparent 70%);animation:flick 2.4s ease-in-out infinite alternate}
+@keyframes flick{to{opacity:.55;transform:scaleY(.85)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

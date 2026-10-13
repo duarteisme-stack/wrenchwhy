@@ -1,0 +1,1 @@
+import {useAuth} from '../lib/auth';export default function Dashboard(){const{profile,admin}=useAuth();return <div className="p-8 max-w-4xl mx-auto"><h1 className="font-display text-5xl">Welcome, {profile?.fullName}</h1><p className="text-gray-400 mt-2">{admin?'Admin tools: coming in next phase.':'Booking, vehicles, QR codes and receipts: coming in next phase.'}</p></div>}

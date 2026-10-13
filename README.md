@@ -1,18 +1,21 @@
-# WrenchWHY? — Auto repair booking (Phase 1 scaffold)
+# WrenchWHY? (Supabase edition, Phase 1 scaffold)
 
 ## Honest status
-**Done:** Vite/React/TS/Tailwind app, fiery homepage (flames, floating "?", swinging wrench, reduced-motion support), register/login with Firebase Auth, pending-approval gate, Firestore + Storage security rules, Cloud Functions for profile creation, admin approval, and a transactional booking with overlap check.
-**NOT done yet (needs further build phases):** admin dashboard UI, mechanic/service management pages, calendars, availability slot generation (shop hours/shifts/breaks/leave), booking UI, PayMongo + webhook verification, QR generation/scanner, Brevo emails + templates, PDF receipts, reminders, search, reports, job orders, reviews, expiry cleanup of holds. Nothing here is a working payment or email integration.
+**Done:** React/TS/Tailwind app, fiery homepage, register/login (Supabase Auth), pending-approval gate, Postgres schema with Row Level Security, admin approval function, atomic booking function (database-level double-booking prevention + 15-min holds).
+**NOT done:** admin UI, mechanic/service pages, calendars, availability rules (shop hours/shifts/breaks/leave), booking UI, PayMongo + webhooks, QR image/scanner, Brevo emails (Edge Functions), PDF receipts, search, reports, reviews, storage buckets.
 
-## Setup
-1. `npm install && (cd functions && npm install)`
-2. Create a Firebase project (Auth email/password, Firestore, Storage, Functions on Blaze plan). Copy `.env.example` to `.env` and fill the web config. Edit `.firebaserc`.
-3. `npm run dev`; emulators: `npm run emulators`.
-4. Deploy: `npm run build && firebase deploy`.
+## Setup (free tier, no card)
+1. supabase.com > New project. Save the database password.
+2. SQL Editor > paste `supabase/migrations/001_init.sql` > Run.
+3. Authentication > Providers > Email enabled (keep "Confirm email" on).
+4. Project Settings > API: copy URL and anon key into `.env` (copy `.env.example`).
+5. `npm install && npm run dev`
 
 ## First admin
-Never via the app. Create the user in Firebase Console, then run once with a service account:
-`admin.auth().setCustomUserClaims(UID,{admin:true})` and create `users/UID` with role "admin", approvalStatus "approved".
+Register on the site, then in the SQL Editor run:
+`update profiles set role='admin', approval_status='approved' where email='YOUR@EMAIL';`
+Clients cannot do this themselves (no update policy for customers).
 
 ## Secrets
-Set Brevo/PayMongo keys with `firebase functions:secrets:set`. Never put them in VITE_ variables.
+Brevo and PayMongo keys go in Supabase > Edge Functions > Secrets, never in the frontend or GitHub.
+Note: free projects pause after about 1 week of inactivity (resume from the dashboard).

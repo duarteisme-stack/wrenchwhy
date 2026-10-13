@@ -19,3 +19,10 @@ Clients cannot do this themselves (no update policy for customers).
 ## Secrets
 Brevo and PayMongo keys go in Supabase > Edge Functions > Secrets, never in the frontend or GitHub.
 Note: free projects pause after about 1 week of inactivity (resume from the dashboard).
+
+## Update 2: calendar, booking, admin, QR
+Run `supabase/migrations/002_calendar_admin_qr.sql` in the SQL Editor after 001.
+- `/calendar` is public (no login): weekly grid, free mechanics per slot. Booking needs an approved account.
+- `/appointments` customer list with QR codes and cancel. `/admin` approvals, services, mechanics, appointments. `/admin/scan` camera scanner plus manual lookup.
+- Booking is "pay at the shop" (no online payment yet). Shop hours are fixed Mon-Sat 8:00-17:00 Manila time.
+- Still not built: PayMongo, Brevo email function, PDF receipts, breaks/leave per mechanic, reviews, reports.

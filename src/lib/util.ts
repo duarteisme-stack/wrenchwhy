@@ -5,3 +5,5 @@ export const addDays=(date:string,n:number)=>manilaDate(new Date(at(date,12).get
 export const dn=(date:string)=>at(date,12).toLocaleDateString('en-US',{weekday:'short',timeZone:'Asia/Manila'});
 export const monday=(date:string)=>addDays(date,-((['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(dn(date))+6)%7));
 export const fmt=(iso:string)=>new Date(iso).toLocaleString('en-PH',{timeZone:'Asia/Manila',dateStyle:'medium',timeStyle:'short'});
+export const h12=(h:number)=>`${h%12||12}:00 ${h<12?'AM':'PM'}`;
+export const nice=(d:string)=>at(d,12).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',timeZone:'Asia/Manila'});

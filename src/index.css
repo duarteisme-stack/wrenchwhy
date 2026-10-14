@@ -1,18 +1,52 @@
 @tailwind base;@tailwind components;@tailwind utilities;
-body{@apply bg-coal text-white font-body}
-.btn{@apply inline-block px-6 py-3 font-semibold rounded bg-fire text-black shadow-[0_0_24px_#ff6a0077] hover:bg-amber transition}
-.btn-ghost{@apply inline-block px-6 py-3 rounded border border-fire/60 hover:bg-fire/10}
-.card{@apply bg-graphite/80 border border-white/10 rounded-lg p-5 backdrop-blur}
+body{@apply bg-coal text-white font-body font-medium}
+.btn{@apply inline-block px-6 py-3 font-bold rounded-lg text-black bg-gradient-to-r from-fire to-amber shadow-[0_0_28px_#ff6a00aa] hover:brightness-110 hover:shadow-[0_0_38px_#ff6a00dd] transition}
+.btn-ghost{@apply inline-block px-6 py-3 rounded-lg border-2 border-fire/80 font-semibold hover:bg-fire/20 hover:shadow-[0_0_20px_#ff6a0066] transition}
+.card{@apply bg-gradient-to-br from-graphite/95 to-[#17120f]/95 border border-fire/30 rounded-xl p-5 backdrop-blur shadow-[0_0_30px_-10px_#ff6a0066]}
 .q{position:absolute;color:#ff6a00;font-family:'Bebas Neue';animation:float 7s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-28px) rotate(8deg)}}
 @keyframes swing{0%,100%{transform:rotate(-25deg)}50%{transform:rotate(25deg)}}
 .wrench{transform-origin:80% 80%;animation:swing 3s ease-in-out infinite}
-.flames{position:absolute;inset:auto 0 0 0;height:40%;background:radial-gradient(ellipse at 50% 100%,#ff6a00cc,#e02a1b66 40%,transparent 70%);animation:flick 2.4s ease-in-out infinite alternate}
+.flames{position:absolute;inset:auto 0 0 0;height:60%;background:radial-gradient(ellipse at 50% 100%,#ff6a00ee,#e02a1b99 40%,#ffb80033 58%,transparent 78%);animation:flick 2.4s ease-in-out infinite alternate}
 @keyframes flick{to{opacity:.55;transform:scaleY(.85)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-html,body{overflow-x:hidden}
+html,body{overflow-x:clip}
 img{max-width:100%}
 html{background:#0e0e10}
 @keyframes glow{from{opacity:.7}to{opacity:1}}
 .q{will-change:transform}
+
+@keyframes slidein{from{transform:translateX(100%)}to{transform:none}}
+.animate-slide{animation:slidein .25s ease-out}
+
+/* ---- Dashboard fire ---- */
+.fire-text{background:linear-gradient(90deg,#ffb000,#ff6a00,#e02a1b,#ff6a00,#ffb000);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:slideline 4s linear infinite;filter:drop-shadow(0 0 12px #ff6a0055)}
+.fire-line{background:linear-gradient(90deg,transparent,#ff6a00,#ffb000,#e02a1b,transparent);background-size:200% 100%;animation:slideline 3s linear infinite}
+@keyframes slideline{to{background-position:200% 0}}
+.flames2{background:radial-gradient(ellipse 60% 100% at 20% 100%,#ff6a00cc,transparent 70%),radial-gradient(ellipse 50% 90% at 72% 100%,#e02a1bbb,transparent 70%),radial-gradient(ellipse 40% 70% at 46% 100%,#ffb00099,transparent 70%);transform-origin:bottom;will-change:transform,opacity;animation:flame 2.2s ease-in-out infinite alternate}
+@keyframes flame{0%{transform:scaleY(.8) skewX(-2deg);opacity:.7}100%{transform:scaleY(1.1) skewX(2deg);opacity:1}}
+.ember{position:absolute;bottom:-12px;border-radius:50%;background:radial-gradient(circle,#ffd27a,#ff6a00 60%,transparent);box-shadow:0 0 8px 2px #ff6a00aa;opacity:0;animation:rise linear infinite;will-change:transform}
+@keyframes rise{0%{transform:translate(0,0) scale(1);opacity:0}10%{opacity:.95}70%{opacity:.5}100%{transform:translate(34px,-105vh) scale(.3);opacity:0}}
+.glow-card{transition:transform .2s,box-shadow .2s,border-color .2s}
+.glow-card:hover{transform:translateY(-3px);border-color:#ff6a00aa;box-shadow:0 0 28px #ff6a0055}
+.pulse-glow{animation:pg 2s ease-in-out infinite}
+@keyframes pg{0%,100%{box-shadow:0 0 0 #ffb00000}50%{box-shadow:0 0 28px #ffb00066}}
+.hero{position:relative;overflow:hidden;border-radius:1rem;padding:1.5rem;border:1px solid #ff6a0099;background:linear-gradient(120deg,#e02a1b99,#ff6a0066 50%,#0e0e1000),#1a1210}
+.hero::after{content:'';position:absolute;inset:auto 0 0 0;height:60%;background:radial-gradient(ellipse at 50% 130%,#ff6a00bb,transparent 70%);animation:glow 3s ease-in-out infinite alternate;pointer-events:none}
+.hero>*{position:relative;z-index:1}
+
+input:not([type=checkbox]):not([type=file]),textarea,select{border-color:#ff6a0066!important}
+input:focus,textarea:focus,select:focus{outline:2px solid #ff6a00;outline-offset:1px}
+::placeholder{color:#a3abb8;opacity:1}
+
+/* ---- Sparkles ---- */
+.star{clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.spark{position:absolute;background:radial-gradient(circle,#fff,#ffe9a8 55%,#ffb800);opacity:0;animation:twinkle 3s ease-in-out infinite;will-change:transform,opacity}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.twinkle-soft{animation:twinkle2 2.6s ease-in-out infinite}
+@keyframes twinkle2{0%,100%{opacity:.5;transform:scale(.7)}50%{opacity:1;transform:scale(1.15) rotate(30deg)}}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(120deg,transparent,#ffffff99,transparent);transform:skewX(-20deg);animation:shine 3.6s ease-in-out infinite;pointer-events:none}
+@keyframes shine{0%,55%{left:-60%}100%{left:140%}}
+.hero::before{content:'';position:absolute;top:16px;right:96px;width:16px;height:16px;background:#fff3c4;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:twinkle 2.2s ease-in-out infinite;z-index:1}

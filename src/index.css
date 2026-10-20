@@ -1,8 +1,14 @@
 @tailwind base;@tailwind components;@tailwind utilities;
-body{@apply bg-coal text-white font-body font-medium}
+@layer components{
 .btn{@apply inline-block px-6 py-3 font-bold rounded-lg text-black bg-gradient-to-r from-fire to-amber shadow-[0_0_28px_#ff6a00aa] hover:brightness-110 hover:shadow-[0_0_38px_#ff6a00dd] transition}
 .btn-ghost{@apply inline-block px-6 py-3 rounded-lg border-2 border-fire/80 font-semibold hover:bg-fire/20 hover:shadow-[0_0_20px_#ff6a0066] transition}
 .card{@apply bg-gradient-to-br from-graphite/95 to-[#17120f]/95 border border-fire/30 rounded-xl p-5 backdrop-blur shadow-[0_0_30px_-10px_#ff6a0066]}
+}
+
+body{@apply bg-coal text-white font-body font-medium}
+
+
+
 .q{position:absolute;color:#ff6a00;font-family:'Bebas Neue';animation:float 7s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-28px) rotate(8deg)}}
 @keyframes swing{0%,100%{transform:rotate(-25deg)}50%{transform:rotate(25deg)}}
